@@ -17,9 +17,12 @@
 
     <!-- 登錄和開始點餐的部分 -->
     <main>
+      <!-- 用戶個人信息 -->
       <div id="profile">
         <p id="profileInfo">🔍 加載中...</p>
       </div>
+
+      <!-- 開始點餐按鈕 -->
       <button id="startOrderButton" style="display: none">🚀 開始點餐</button>
     </main>
 
@@ -35,13 +38,8 @@
         const startOrderButton = document.getElementById("startOrderButton");
 
         try {
-<<<<<<< HEAD
-          // 初始化 LIFF，替換 '2006691726-aGlQ9R4R' 為實際的 LIFF ID
-          await liff.init({ liffId: "YOUR_LIFF_ID" });
-=======
           // 初始化 LIFF，替換正確的 LIFF ID
           await liff.init({ liffId: "2006691726-aGlQ9R4R" });
->>>>>>> 910c1d4 (Updated index.html with LIFF auto-load functionality)
 
           // 檢查是否已登錄 LINE
           if (!liff.isLoggedIn()) {
