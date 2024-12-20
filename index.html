@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🍔 QuickEats - 快餐達人</title>
     <link rel="stylesheet" href="styles.css" />
-    <!-- 加載LINE LIFF SDK -->
+    <!-- 加載 LINE LIFF SDK -->
     <script src="https://static.line-scdn.net/liff/edge/2.1/liff.js"></script>
   </head>
   <body>
@@ -17,12 +17,9 @@
 
     <!-- 登錄和開始點餐的部分 -->
     <main>
-      <!-- 用戶個人信息 -->
       <div id="profile">
         <p id="profileInfo">🔍 加載中...</p>
       </div>
-
-      <!-- 開始點餐按鈕 -->
       <button id="startOrderButton" style="display: none">🚀 開始點餐</button>
     </main>
 
@@ -32,39 +29,50 @@
     </footer>
 
     <script>
-      // 初始化 LIFF SDK
+      // 自動初始化 LIFF
       async function initializeLiff() {
         const profileInfoElement = document.getElementById("profileInfo");
         const startOrderButton = document.getElementById("startOrderButton");
 
         try {
+<<<<<<< HEAD
           // 初始化 LIFF，替換 '2006691726-aGlQ9R4R' 為實際的 LIFF ID
           await liff.init({ liffId: "YOUR_LIFF_ID" });
+=======
+          // 初始化 LIFF，替換正確的 LIFF ID
+          await liff.init({ liffId: "2006691726-aGlQ9R4R" });
+>>>>>>> 910c1d4 (Updated index.html with LIFF auto-load functionality)
 
           // 檢查是否已登錄 LINE
           if (!liff.isLoggedIn()) {
-            liff.login(); // 如果未登錄，則重定向到 LINE 登錄頁面
+            liff.login(); // 未登錄則跳轉到 LINE 登錄頁面
             return;
           }
 
-          // 已登錄，獲取用戶信息
+          // 已登錄，用戶資料加載
           const profile = await liff.getProfile();
-          profileInfoElement.textContent = `🎉 歡迎, ${profile.displayName}!`;
+          profileInfoElement.innerHTML = `
+            <p>🎉 歡迎, ${profile.displayName}!</p>
+            <img src="${profile.pictureUrl}" alt="Profile Picture" width="100" />
+          `;
           startOrderButton.style.display = "block";
 
-          // 綁定按鈕行為
+          // 綁定按鈕事件
           startOrderButton.addEventListener("click", () => {
-            window.location.href = "https://quick-eats-two.vercel.app/"; // 跳轉到 QuickEats 點餐系統
+            liff.openWindow({
+              url: "https://quick-eats-two.vercel.app/", // 跳轉到 QuickEats 點餐系統
+              external: true,
+            });
           });
 
-          console.log("LIFF 初始化成功！");
+          console.log("✅ LIFF 初始化成功");
         } catch (error) {
-          console.error("LIFF 初始化失敗：", error);
+          console.error("❌ LIFF 初始化失敗：", error);
           profileInfoElement.textContent = "❌ 無法加載 LIFF，請稍後再試。";
         }
       }
 
-      // 頁面加載時初始化 LIFF
+      // 頁面加載時自動初始化 LIFF
       window.onload = initializeLiff;
     </script>
   </body>
